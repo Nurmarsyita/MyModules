@@ -4,36 +4,45 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class SecondActivity extends AppCompatActivity {
 
-    TextView modCode;
-    TextView modName;
-    TextView year;
-    TextView sem;
-    TextView modCredit;
-    TextView venue;
+    TextView tvDetails;
+    Button btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
 
-        modCode = findViewById(R.id.textViewModCode);
-        modName = findViewById(R.id.textViewModName);
-        year = findViewById(R.id.textViewYear);
-        sem = findViewById(R.id.textViewSem);
-        modCredit = findViewById(R.id.textViewCredit);
-        venue = findViewById(R.id.textViewVenue);
+        tvDetails = findViewById(R.id.textViewDetails);
+        btnBack = findViewById(R.id.buttonBack);
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         Intent intentReceived = getIntent();
-        String mod1 = intentReceived.getStringExtra("modules");
-        modCode.setText("Module Code: C346");
-        modName.setText("Module Name: Android Programming");
-        year.setText("Academic Year: 2020");
-        sem.setText("Semester: 1");
-        modCredit.setText("Module Credit: 4");
-        venue.setText("Venue: W66M");
+        String modCode = intentReceived.getStringExtra("ModuleCode");
+
+        if (modCode.equals("C346")) {
+            tvDetails.setText("Module Code: C346\nModule Name: Android Programming\n" + "Academic Year: 2020\nSemester: 1\nModule Credit: 4\nVenue: W66M");
+        } else if (modCode.equals("C349")) {
+            tvDetails.setText("Module Code: C349\nModule Name: iPad Programming\n" + "Academic Year: 2020\nSemester: 1\nModule Credit: 4\nVenue: W66M");
+        }
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
     }
 }
